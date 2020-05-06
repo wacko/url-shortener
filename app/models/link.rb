@@ -4,10 +4,15 @@ class Link < ApplicationRecord
 
   before_create :generate_random_code
 
+  def self.with_code! code
+    where(code: code).first!
+  end
+
   def generate_random_code
     if code.blank?
       chars = ['a'..'z', 'A'..'Z', '0'..'9'].flat_map(&:to_a)
       self.code = 6.times.map{chars.sample}.join
     end
   end
+
 end
