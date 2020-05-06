@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   scope constraints: lambda { |req| req.format == :json } do
     post 'urls', to: 'links#create'
     get ':code', to: 'links#show'
+    get ':code/stats', to: 'links#stats'
   end
 end

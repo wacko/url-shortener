@@ -15,7 +15,15 @@ class LinksController < ApplicationController
 
   def show
     link = Link.with_code! params[:code]
+    link.increment_visits!
     redirect_to link.url
+  rescue
+    render nothing: true, status: 404
+  end
+
+  def stats
+    link = Link.with_code! params[:code]
+    render json: link.to_json, status: :ok
   rescue
     render nothing: true, status: 404
   end

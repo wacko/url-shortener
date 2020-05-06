@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_112716) do
   create_table "links", force: :cascade do |t|
     t.string "url", default: "", null: false
     t.string "code", default: "", null: false
-    t.integer "usage_count"
+    t.integer "usage_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["code"], name: "index_links_on_code", unique: true

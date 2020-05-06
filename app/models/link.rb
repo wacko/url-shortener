@@ -8,11 +8,27 @@ class Link < ApplicationRecord
     where(code: code).first!
   end
 
+  def increment_visits!
+    increment :usage_count
+    save
+  end
+
   def generate_random_code
     if code.blank?
       chars = ['a'..'z', 'A'..'Z', '0'..'9'].flat_map(&:to_a)
       self.code = 6.times.map{chars.sample}.join
     end
+  end
+
+  def to_json
+    response = {
+      start_date: created_at.iso8601,
+      last_usage: updated_at.iso8601,
+      usage_count: usage_count
+    }
+    response.delete(:last_usage) if usage_count == 0
+
+    response.to_json
   end
 
 end

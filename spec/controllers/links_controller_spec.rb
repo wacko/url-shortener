@@ -50,4 +50,13 @@ RSpec.describe LinksController, type: :controller do
     end
   end
 
+  describe "GET /:code/stats" do
+    it "returns '201 Created' and shortcode" do
+      Link.create(valid_attributes)
+      get :stats, params: {code: 'google'}
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('start_date')
+    end
+  end
+
 end
